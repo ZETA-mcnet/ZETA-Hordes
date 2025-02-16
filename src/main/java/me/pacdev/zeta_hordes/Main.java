@@ -71,17 +71,17 @@ public class Main extends JavaPlugin {
                     return true;
                 }
 
-                // Check if the player is blacklisted or in an invalid game mode
-                List<String> blacklist = getConfig().getStringList("blacklist");
-                if (blacklist.contains(targetPlayer.getName())) {
-                    sender.sendMessage("§cThis player is blacklisted!");
-                    return true;
-                }
+                // // Check if the player is blacklisted or in an invalid game mode
+                // List<String> blacklist = getConfig().getStringList("blacklist");
+                // if (blacklist.contains(targetPlayer.getName())) {
+                //     sender.sendMessage("§cThis player is blacklisted!");
+                //     return true;
+                // }
 
-                if (targetPlayer.getGameMode() != GameMode.SURVIVAL && targetPlayer.getGameMode() != GameMode.ADVENTURE) {
-                    sender.sendMessage("§cThis player is not in Survival or Adventure mode!");
-                    return true;
-                }
+                // if (targetPlayer.getGameMode() != GameMode.SURVIVAL && targetPlayer.getGameMode() != GameMode.ADVENTURE) {
+                //     sender.sendMessage("§cThis player is not in Survival or Adventure mode!");
+                //     return true;
+                // }
 
                 new ZombieHordeTask(this).spawnZombieHorde(targetPlayer);
                 sender.sendMessage("§aForced a horde on " + targetPlayer.getName() + "!");

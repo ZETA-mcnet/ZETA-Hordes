@@ -24,7 +24,7 @@ public class ZombieHordeTask extends BukkitRunnable {
         Player targetPlayer = getRandomTargetPlayer();
         if (targetPlayer != null) {
             spawnZombieHorde(targetPlayer);
-            sendRandomMessage(targetPlayer);
+            // sendRandomMessage(targetPlayer);
         }
     }
 

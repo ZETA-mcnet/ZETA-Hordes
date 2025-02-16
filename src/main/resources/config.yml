@@ -1,12 +1,12 @@
 # Zombie spawn settings
 zombie-count:
-  min: 5
-  max: 10
+  min: 20
+  max: 40
 
 # Distance settings (in blocks)
 spread:
-  min-distance: 15
-  max-distance: 30
+  min-distance: 12
+  max-distance: 36
 
 # Round settings
 round-duration: 300 # Duration of a round in seconds
