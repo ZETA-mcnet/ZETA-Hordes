@@ -1,0 +1,10 @@
+zombie-count:
+  min: 5
+  max: 10
+player-percentage: 0.2
+messages:
+  - "You hear distant screaming..."
+  - "You hear aggressive steps in the distance..."
+  - "The ground shakes faintly..."
+  - "A cold breeze passes by..."
+  - "You feel a presence nearby..."

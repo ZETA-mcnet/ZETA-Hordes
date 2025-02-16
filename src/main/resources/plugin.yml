@@ -1,0 +1,5 @@
+name: ZombieHorde
+version: 1.0.0
+main: me.pacdev.zeta_hordes.Main
+api-version: 1.18
+commands: {}
