@@ -1,6 +1,7 @@
 package me.pacdev.zeta_hordes;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -20,28 +21,45 @@ public class ZombieHordeTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        List<Player> players = (List<Player>) Bukkit.getOnlinePlayers();
-        int targetPlayerCount = (int) Math.ceil(players.size() * plugin.getConfig().getDouble("player-percentage"));
-
-        for (int i = 0; i < targetPlayerCount; i++) {
-            Player targetPlayer = players.get(random.nextInt(players.size()));
+        Player targetPlayer = getRandomTargetPlayer();
+        if (targetPlayer != null) {
             spawnZombieHorde(targetPlayer);
             sendRandomMessage(targetPlayer);
         }
     }
 
-    private void spawnZombieHorde(Player player) {
+    private Player getRandomTargetPlayer() {
+        List<Player> players = (List<Player>) Bukkit.getOnlinePlayers();
+        List<String> blacklist = plugin.getConfig().getStringList("blacklist");
+
+        // Filter out blacklisted players and players in Creative/Spectator mode
+        List<Player> validPlayers = players.stream()
+                .filter(player -> !blacklist.contains(player.getName())) // Exclude blacklisted players
+                .filter(player -> player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) // Only Survival/Adventure
+                .toList();
+
+        if (validPlayers.isEmpty()) {
+            return null; // No valid players to target
+        }
+
+        return validPlayers.get(random.nextInt(validPlayers.size()));
+    }
+
+    public void spawnZombieHorde(Player player) {
         World world = player.getWorld();
         Location playerLocation = player.getLocation();
         int minZombies = plugin.getConfig().getInt("zombie-count.min");
         int maxZombies = plugin.getConfig().getInt("zombie-count.max");
         int zombieCount = minZombies + random.nextInt(maxZombies - minZombies + 1);
 
+        int minDistance = plugin.getConfig().getInt("spread.min-distance");
+        int maxDistance = plugin.getConfig().getInt("spread.max-distance");
+
         for (int i = 0; i < zombieCount; i++) {
             Location spawnLocation = playerLocation.clone().add(
-                    random.nextInt(20) - 10, // Random X offset (-10 to 10 blocks)
+                    random.nextInt(maxDistance - minDistance + 1) + minDistance, // Random X offset
                     0, // Y offset (will be adjusted to the highest block)
-                    random.nextInt(20) - 10  // Random Z offset (-10 to 10 blocks)
+                    random.nextInt(maxDistance - minDistance + 1) + minDistance  // Random Z offset
             );
 
             spawnLocation.setY(world.getHighestBlockYAt(spawnLocation));

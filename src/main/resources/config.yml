@@ -1,10 +1,32 @@
+# Zombie spawn settings
 zombie-count:
   min: 5
   max: 10
-player-percentage: 0.2
+
+# Distance settings (in blocks)
+spread:
+  min-distance: 15
+  max-distance: 30
+
+# Round settings
+round-duration: 300 # Duration of a round in seconds
+horde-percentage: 200 # Percentage of online players to determine horde count
+horde-interval: 30 # Interval between horde spawns in seconds
+
+# List of players to exclude from targeting
+blacklist:
+  - LautBiru
+  - Pacdev
+  - Notch
+  - Herobrine
+
+# Spawning messages (supports color codes)
 messages:
-  - "You hear distant screaming..."
-  - "You hear aggressive steps in the distance..."
-  - "The ground shakes faintly..."
-  - "A cold breeze passes by..."
-  - "You feel a presence nearby..."
+  - "&8You hear distant screaming..."
+  - "&8You hear aggressive steps in the distance..."
+  - "&8The ground shakes faintly..."
+  - "&8A cold breeze passes by..."
+  - "&8You feel a presence nearby..."
+  - "&8Something is watching you..."
+  - "&8You hear faint growls..."
+  - "&8The air feels heavy..."
