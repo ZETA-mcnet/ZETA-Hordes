@@ -26,8 +26,14 @@ public class Main extends JavaPlugin {
         // Save default config if it doesn't exist
         saveDefaultConfig();
 
+        // Initialize Utils with this instance
+        Utils.init(this);
+
         // Start the round task
         startRoundTask();
+
+        new AdaptiveSpawner(this).runTaskTimer(this, 0, 180);
+        new Despawner(this).runTaskTimer(this, 0, 200);
 
         // // Register the listener for custom spawning logic
         // getServer().getPluginManager().registerEvents(new ZombieSpawnListener(), this);

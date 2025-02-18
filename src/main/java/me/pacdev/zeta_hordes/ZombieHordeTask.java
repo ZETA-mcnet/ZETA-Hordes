@@ -5,6 +5,8 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Zombie;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
@@ -24,6 +26,7 @@ public class ZombieHordeTask extends BukkitRunnable {
         Player targetPlayer = getRandomTargetPlayer();
         if (targetPlayer != null) {
             spawnZombieHorde(targetPlayer);
+            Bukkit.getLogger().info("HORDE spawned, target: " + targetPlayer);
             // sendRandomMessage(targetPlayer);
         }
     }
@@ -56,24 +59,25 @@ public class ZombieHordeTask extends BukkitRunnable {
         int maxDistance = plugin.getConfig().getInt("spread.max-distance");
 
         for (int i = 0; i < zombieCount; i++) {
-            Location spawnLocation = playerLocation.clone().add(
-                    random.nextInt(maxDistance - minDistance + 1) + minDistance, // Random X offset
-                    0, // Y offset (will be adjusted to the highest block)
-                    random.nextInt(maxDistance - minDistance + 1) + minDistance  // Random Z offset
-            );
+            double angle = random.nextDouble() * 2 * Math.PI; // Random direction in radians
+            double distance = minDistance + random.nextDouble() * (maxDistance - minDistance);
+            double xOffset = Math.cos(angle) * distance;
+            double zOffset = Math.sin(angle) * distance;
 
+            Location spawnLocation = playerLocation.clone().add(xOffset, 0, zOffset);
             spawnLocation.setY(world.getHighestBlockYAt(spawnLocation));
 
-            // Spawn the zombie using Paper's API
-            world.spawn(spawnLocation, org.bukkit.entity.Zombie.class, zombie -> {
-                zombie.setTarget(player); // Make the zombie target the player
+            // Spawn the zombie and set its target
+            world.spawn(spawnLocation, Zombie.class, zombie -> {
+                zombie.setTarget(player);
+                setFollowRange(zombie, 80.0);
             });
         }
     }
 
-    private void sendRandomMessage(Player player) {
-        List<String> messages = plugin.getConfig().getStringList("messages");
-        String message = messages.get(random.nextInt(messages.size()));
-        player.sendMessage(message);
+    private void setFollowRange(Zombie zombie, double range) {
+        if (zombie.getAttribute(Attribute.GENERIC_FOLLOW_RANGE) != null) {
+            zombie.getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(range);
+        }
     }
 }

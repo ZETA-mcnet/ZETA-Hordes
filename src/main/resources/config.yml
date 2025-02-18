@@ -5,18 +5,18 @@ zombie-count:
 
 # Distance settings (in blocks)
 spread:
-  min-distance: 12
-  max-distance: 36
+  min-distance: 8
+  max-distance: 30
 
 # Round settings
 round-duration: 300 # Duration of a round in seconds
 horde-percentage: 200 # Percentage of online players to determine horde count
-horde-interval: 30 # Interval between horde spawns in seconds
+horde-interval: 20 # Interval between horde spawns in seconds
 
 # List of players to exclude from targeting
 blacklist:
-  - LautBiru
-  - Pacdev
+  # - LautBiru
+  # - Pacdev
   - Notch
   - Herobrine
 
@@ -30,3 +30,21 @@ messages:
   - "&8Something is watching you..."
   - "&8You hear faint growls..."
   - "&8The air feels heavy..."
+
+# Adaptive Spawner settings
+adaptive-spawner:
+  grid-size: 25
+  zombies-per-player: 8
+  min-distance: 8
+  max-distance: 30
+  min-y: 60
+  max-y: 70
+
+# Hordes settings
+hordes:
+  min-y: 64
+  max-y: 74
+
+# Despawner settings
+despawner:
+  max-player-distance: 32
