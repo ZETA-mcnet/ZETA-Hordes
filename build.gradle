@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'me.pacdev'
-version = 'Z1.3.0'
+version = 'Z1.3.1'
 
 repositories {
     mavenCentral()

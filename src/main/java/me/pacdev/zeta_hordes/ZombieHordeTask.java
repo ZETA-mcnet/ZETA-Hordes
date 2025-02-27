@@ -1,6 +1,7 @@
 package me.pacdev.zeta_hordes;
 
 import org.bukkit.Bukkit;
+import java.util.HashSet;
 import org.bukkit.configuration.file.FileConfiguration;
 import java.util.Set;
 import org.bukkit.GameMode;
@@ -21,7 +22,7 @@ public class ZombieHordeTask extends BukkitRunnable {
 
     public ZombieHordeTask(Main plugin) { 
         this.plugin = plugin;
-        this.worldWhitelist = (Set<String>) plugin.getConfig().getStringList("world-whitelist");
+        this.worldWhitelist = new HashSet<>(plugin.getConfig().getStringList("world-whitelist"));
     }
     private final Random random = new Random();
 
@@ -81,7 +82,6 @@ public class ZombieHordeTask extends BukkitRunnable {
             });
         }
     }
-
     private void setFollowRange(Zombie zombie, double range) {
         if (zombie.getAttribute(Attribute.FOLLOW_RANGE) != null) {
             zombie.getAttribute(Attribute.FOLLOW_RANGE).setBaseValue(range);
