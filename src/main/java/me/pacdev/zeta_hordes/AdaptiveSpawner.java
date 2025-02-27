@@ -62,7 +62,7 @@ public class AdaptiveSpawner extends BukkitRunnable {
             if (random.nextBoolean()) xOffset *= -1;
             if (random.nextBoolean()) zOffset *= -1;
 
-            double spawnY = playerLocation.getY() + (random.nextInt(7) - 3); // ±3 Y variation from player
+            double spawnY = playerLocation.getY() + (random.nextInt(7) + 3); // ±3 Y variation from player
             spawnY = Math.max(minY, Math.min(spawnY, maxY)); // Constrain to minY/maxY limits
 
             Location spawnLocation = new Location(world, playerLocation.getX() + xOffset, spawnY, playerLocation.getZ() + zOffset);
