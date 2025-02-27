@@ -1,6 +1,8 @@
 package me.pacdev.zeta_hordes;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
+import java.util.Set;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -14,12 +16,14 @@ import java.util.Random;
 
 public class ZombieHordeTask extends BukkitRunnable {
 
-    private final Main plugin;
-    private final Random random = new Random();
+    private final Main plugin; 
+    private final Set<String> worldWhitelist;
 
-    public ZombieHordeTask(Main plugin) {
+    public ZombieHordeTask(Main plugin) { 
         this.plugin = plugin;
+        this.worldWhitelist = (Set<String>) plugin.getConfig().getStringList("world-whitelist");
     }
+    private final Random random = new Random();
 
     @Override
     public void run() {
@@ -37,6 +41,9 @@ public class ZombieHordeTask extends BukkitRunnable {
 
         // Filter out blacklisted players and players in Creative/Spectator mode
         List<Player> validPlayers = players.stream()
+                .filter(player -> worldWhitelist.contains(player.getWorld().getName())) // Only include players in whitelisted worlds
+                .filter(player -> worldWhitelist.contains(player.getWorld().getName())) // Only include players in whitelisted worlds
+                .filter(player -> worldWhitelist.contains(player.getWorld().getName())) // Only include players in whitelisted worlds
                 .filter(player -> !blacklist.contains(player.getName())) // Exclude blacklisted players
                 .filter(player -> player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) // Only Survival/Adventure
                 .toList();
@@ -76,8 +83,8 @@ public class ZombieHordeTask extends BukkitRunnable {
     }
 
     private void setFollowRange(Zombie zombie, double range) {
-        if (zombie.getAttribute(Attribute.GENERIC_FOLLOW_RANGE) != null) {
-            zombie.getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(range);
+        if (zombie.getAttribute(Attribute.FOLLOW_RANGE) != null) {
+            zombie.getAttribute(Attribute.FOLLOW_RANGE).setBaseValue(range);
         }
     }
 }

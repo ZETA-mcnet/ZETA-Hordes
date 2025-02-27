@@ -1,7 +1,7 @@
 name: ZETA-Hordes
 main: me.pacdev.zeta_hordes.Main
 version: Z1.2.4
-api-version: 1.18
+api-version: 1.21
 commands:
   zetahordes:
     description: Zeta Hordes command

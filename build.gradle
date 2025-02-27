@@ -13,8 +13,8 @@ repositories {
 }
 
 dependencies {
-    implementation 'io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT'
+    implementation 'io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT'
 }
 
-sourceCompatibility = '17'
-targetCompatibility = '17'
+sourceCompatibility = '21'
+targetCompatibility = '21'

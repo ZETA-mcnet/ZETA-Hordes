@@ -1,4 +1,6 @@
 # Zombie spawn settings
+world-whitelist:
+  - nostalgia
 zombie-count:
   min: 20
   max: 40

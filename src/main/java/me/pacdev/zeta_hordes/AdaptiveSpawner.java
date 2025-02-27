@@ -74,8 +74,8 @@ public class AdaptiveSpawner extends BukkitRunnable {
     }
 
     private void setFollowRange(Zombie zombie, double range) {
-        if (zombie.getAttribute(Attribute.GENERIC_FOLLOW_RANGE) != null) {
-            zombie.getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(range);
+        if (zombie.getAttribute(Attribute.FOLLOW_RANGE) != null) {
+            zombie.getAttribute(Attribute.FOLLOW_RANGE).setBaseValue(range);
         }
     }
 }
