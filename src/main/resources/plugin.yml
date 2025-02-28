@@ -1,6 +1,6 @@
 name: ZETA-Hordes
 main: me.pacdev.zeta_hordes.Main
-version: Z1.3.2
+version: Z1.4.0
 api-version: 1.21
 commands:
   zetahordes:

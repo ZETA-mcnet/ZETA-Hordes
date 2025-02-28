@@ -1,6 +1,7 @@
 package me.pacdev.zeta_hordes;
 
-
+import me.pacdev.zeta_hordes.zombies.CustomZombieManager;
+import me.pacdev.zeta_hordes.zombies.ZombieAbilityHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -20,6 +21,8 @@ public class Main extends JavaPlugin {
     private BukkitTask roundTask;
     private int hordeQuota;
     private int hordesSpawned;
+    private CustomZombieManager zombieManager;
+    private ZombieAbilityHandler abilityHandler;
 
     @Override
     public void onEnable() {
@@ -28,6 +31,10 @@ public class Main extends JavaPlugin {
 
         // Initialize Utils with this instance
         Utils.init(this);
+
+        // Initialize custom zombie system
+        this.zombieManager = new CustomZombieManager(this);
+        this.abilityHandler = new ZombieAbilityHandler(this, zombieManager);
 
         // Start the round task
         startRoundTask();
@@ -49,6 +56,10 @@ public class Main extends JavaPlugin {
         getLogger().info("ZombieHorde plugin disabled!");
     }
 
+    public CustomZombieManager getZombieManager() {
+        return zombieManager;
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
@@ -61,6 +72,7 @@ public class Main extends JavaPlugin {
         switch (args[0].toLowerCase()) {
             case "reload":
                 reloadConfig();
+                zombieManager = new CustomZombieManager(this); // Reload zombie types
                 startRoundTask(); // Restart the round task with the new config
                 sender.sendMessage("§aConfig reloaded!");
                 return true;

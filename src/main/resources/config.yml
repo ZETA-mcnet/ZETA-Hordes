@@ -22,6 +22,95 @@ blacklist:
   - Notch
   - Herobrine
 
+# Custom Zombie Types
+zombie-types:
+  tank:
+    display-name: "&c&lTank Zombie"
+    health: 40.0
+    damage: 8.0
+    speed: 0.2 # Default is 0.23
+    armor:
+      helmet: "DIAMOND_HELMET"
+      chestplate: "DIAMOND_CHESTPLATE"
+      leggings: "DIAMOND_LEGGINGS"
+      boots: "DIAMOND_BOOTS"
+    effects:
+      - "DAMAGE_RESISTANCE:1:infinite"
+      - "INCREASE_DAMAGE:1:infinite"
+    abilities:
+      ground-pound:
+        radius: 3
+        cooldown: 100 # ticks
+        damage: 4.0
+    spawn-weight: 10
+    min-players: 1
+    drops:
+      - item: "DIAMOND"
+        chance: 0.3
+        amount: "1-3"
+      
+  sprinter:
+    display-name: "&e&lSprinter Zombie"
+    health: 16.0
+    damage: 3.0
+    speed: 0.35
+    effects:
+      - "SPEED:2:infinite"
+    spawn-weight: 25
+    min-players: 0
+    
+  bomber:
+    display-name: "&4&lBomber Zombie"
+    health: 20.0
+    damage: 4.0
+    speed: 0.2
+    explosion:
+      power: 2.0
+      fire: false
+      block-damage: true
+    effects:
+      - "GLOWING:1:infinite"
+    spawn-weight: 15
+    min-players: 2
+    
+  ninja:
+    display-name: "&8&lNinja Zombie"
+    health: 15.0
+    damage: 6.0
+    speed: 0.3
+    abilities:
+      teleport:
+        range: 16
+        cooldown: 60
+      invisibility:
+        duration: 60 # ticks
+        cooldown: 200
+    effects:
+      - "INVISIBILITY:1:infinite"
+    spawn-weight: 15
+    min-players: 3
+
+  brute:
+    display-name: "&7&lBrute Zombie"
+    health: 30.0
+    damage: 12.0
+    speed: 0.18
+    knockback-resistance: 1.0
+    effects:
+      - "SLOWNESS:1:infinite"
+      - "INCREASE_DAMAGE:2:infinite"
+    spawn-weight: 12
+    min-players: 2
+
+# Horde composition settings
+horde-composition:
+  guaranteed-special: true # Guarantee at least one special zombie per horde
+  max-special-percentage: 30 # Maximum percentage of special zombies in a horde
+  scaling:
+    enabled: true
+    factor: 0.1 # 10% stronger per player online
+    max-multiplier: 2.0 # Maximum 200% strength
+
 # Spawning messages (supports color codes)
 messages:
   - "&8You hear distant screaming..."
@@ -46,6 +135,7 @@ adaptive-spawner:
 hordes:
   min-y: 64
   max-y: 74
+  follow-range: 256.0  # Maximum distance zombies will track players (in blocks). Set to -1 for unlimited range.
 
 # Despawner settings
 despawner:
