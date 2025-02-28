@@ -1,6 +1,6 @@
 package me.pacdev.zeta_hordes.zombies;
 
-import me.pacdev.zeta_hordes.Main;
+import me.pacdev.zeta_hordes.ZetaHordes;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Zombie;
@@ -8,12 +8,12 @@ import org.bukkit.entity.Zombie;
 import java.util.*;
 
 public class CustomZombieManager {
-    private final Main plugin;
+    private final ZetaHordes plugin;
     private final Map<String, CustomZombieType> zombieTypes;
     private final NavigableMap<Integer, String> weightMap;
     private int totalWeight;
 
-    public CustomZombieManager(Main plugin) {
+    public CustomZombieManager(ZetaHordes plugin) {
         this.plugin = plugin;
         this.zombieTypes = new HashMap<>();
         this.weightMap = new TreeMap<>();

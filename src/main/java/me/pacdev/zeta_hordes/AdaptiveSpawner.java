@@ -12,7 +12,7 @@ import org.bukkit.attribute.Attribute;
 import java.util.Random;
 
 public class AdaptiveSpawner extends BukkitRunnable {
-    private final Main plugin;
+    private final ZetaHordes plugin;
     private final int gridSize;
     private final int zombiesPerPlayer;
     private final int minSpawnDistance;
@@ -21,7 +21,7 @@ public class AdaptiveSpawner extends BukkitRunnable {
     private final int maxY;
     private final Random random = new Random();
 
-    public AdaptiveSpawner(Main plugin) {
+    public AdaptiveSpawner(ZetaHordes plugin) {
         this.plugin = plugin;
         FileConfiguration config = plugin.getConfig();
         

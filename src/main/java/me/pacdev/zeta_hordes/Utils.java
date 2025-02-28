@@ -5,10 +5,10 @@ import org.bukkit.Material;
 import org.bukkit.World;
 
 public class Utils {
-    private static Main plugin;
+    private static ZetaHordes plugin;
 
     // Set the plugin instance
-    public static void init(Main main) {
+    public static void init(ZetaHordes main) {
         plugin = main;
     }
 

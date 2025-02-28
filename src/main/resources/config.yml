@@ -15,6 +15,18 @@ round-duration: 300 # Duration of a round in seconds
 horde-percentage: 200 # Percentage of online players to determine horde count
 horde-interval: 20 # Interval between horde spawns in seconds
 
+# AFK detection settings (silent anti-farm)
+afk:
+  timeout: 300 # Time in seconds before considering a player AFK
+  track:
+    movement: true
+    rotation: true
+    actions: true
+    chat: true
+    inventory: true
+  movement-threshold: 0.2  # Minimum blocks moved to count as activity
+  rotation-threshold: 15.0 # Minimum degrees rotated to count as activity
+
 # List of players to exclude from targeting
 blacklist:
   # - LautBiru

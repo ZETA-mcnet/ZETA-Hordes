@@ -1,6 +1,6 @@
 package me.pacdev.zeta_hordes.zombies;
 
-import me.pacdev.zeta_hordes.Main;
+import me.pacdev.zeta_hordes.ZetaHordes;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -15,6 +15,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,15 +23,14 @@ import java.util.Map;
 import java.util.UUID;
 
 public class ZombieAbilityHandler implements Listener {
-    private final Main plugin;
+    private final ZetaHordes plugin;
     private final CustomZombieManager zombieManager;
     private final Map<UUID, Map<String, Long>> cooldowns;
 
-    public ZombieAbilityHandler(Main plugin, CustomZombieManager zombieManager) {
+    public ZombieAbilityHandler(ZetaHordes plugin, CustomZombieManager zombieManager) {
         this.plugin = plugin;
         this.zombieManager = zombieManager;
         this.cooldowns = new HashMap<>();
-        plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler
@@ -78,7 +78,7 @@ public class ZombieAbilityHandler implements Listener {
         // Handle drops
         event.getDrops().clear(); // Clear default drops
         type.getDrops().forEach(drop -> {
-            org.bukkit.inventory.ItemStack item = drop.generateDrop();
+            ItemStack item = drop.generateDrop();
             if (item != null) {
                 event.getDrops().add(item);
             }
@@ -89,6 +89,19 @@ public class ZombieAbilityHandler implements Listener {
         List<MetadataValue> metadata = entity.getMetadata("custom_zombie_type");
         if (metadata.isEmpty()) return null;
         return metadata.get(0).asString();
+    }
+
+    private boolean canUseAbility(UUID entityId, String ability, int cooldownTicks) {
+        Map<String, Long> entityCooldowns = cooldowns.computeIfAbsent(entityId, k -> new HashMap<>());
+        long lastUse = entityCooldowns.getOrDefault(ability, 0L);
+        long currentTime = System.currentTimeMillis();
+        
+        if (currentTime - lastUse < cooldownTicks * 50L) { // Convert ticks to milliseconds
+            return false;
+        }
+        
+        entityCooldowns.put(ability, currentTime);
+        return true;
     }
 
     private void handleGroundPound(Zombie zombie, Object abilityData) {
@@ -128,18 +141,5 @@ public class ZombieAbilityHandler implements Listener {
                 zombie.getWorld().strikeLightningEffect(center);
             }
         }.runTask(plugin);
-    }
-
-    private boolean canUseAbility(UUID entityId, String ability, int cooldownTicks) {
-        Map<String, Long> entityCooldowns = cooldowns.computeIfAbsent(entityId, k -> new HashMap<>());
-        long lastUse = entityCooldowns.getOrDefault(ability, 0L);
-        long currentTime = System.currentTimeMillis();
-        
-        if (currentTime - lastUse < cooldownTicks * 50L) { // Convert ticks to milliseconds
-            return false;
-        }
-        
-        entityCooldowns.put(ability, currentTime);
-        return true;
     }
 } 

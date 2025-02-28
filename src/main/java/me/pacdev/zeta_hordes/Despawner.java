@@ -7,12 +7,11 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Zombie;
 import org.bukkit.scheduler.BukkitRunnable;
 
-
 public class Despawner extends BukkitRunnable {
-    private final Main plugin;
+    private final ZetaHordes plugin;
     private final int maxPlayerDistance;
 
-    public Despawner(Main plugin) {
+    public Despawner(ZetaHordes plugin) {
         this.plugin = plugin;
         FileConfiguration config = plugin.getConfig();
         this.maxPlayerDistance = config.getInt("despawner.max-player-distance", 50);

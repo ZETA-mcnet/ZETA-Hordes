@@ -69,14 +69,7 @@ public class CustomZombieType {
             ConfigurationSection abilitiesSection = config.getConfigurationSection("abilities");
             if (abilitiesSection != null) {
                 for (String abilityName : abilitiesSection.getKeys(false)) {
-                    ConfigurationSection abilitySection = abilitiesSection.getConfigurationSection(abilityName);
-                    if (abilitySection != null) {
-                        Map<String, Object> abilityData = new HashMap<>();
-                        for (String key : abilitySection.getKeys(false)) {
-                            abilityData.put(key, abilitySection.get(key));
-                        }
-                        abilities.put(abilityName, abilityData);
-                    }
+                    abilities.put(abilityName, abilitiesSection.getConfigurationSection(abilityName).getValues(true));
                 }
             }
         }
@@ -85,10 +78,9 @@ public class CustomZombieType {
         this.drops = new ArrayList<>();
         if (config.contains("drops")) {
             for (Map<?, ?> dropMap : config.getMapList("drops")) {
-                String item = (String) dropMap.get("item");
-                double chance = ((Number) dropMap.get("chance")).doubleValue();
-                String amount = (String) dropMap.get("amount");
-                drops.add(new ZombieDrop(Material.valueOf(item), chance, amount));
+                ConfigurationSection dropSection = config.createSection("temp", dropMap);
+                drops.add(new ZombieDrop(dropSection));
+                config.set("temp", null);
             }
         }
     }
@@ -123,7 +115,7 @@ public class CustomZombieType {
 
         // Store custom type ID in metadata
         zombie.setMetadata("custom_zombie_type", new FixedMetadataValue(
-            me.pacdev.zeta_hordes.Main.getPlugin(me.pacdev.zeta_hordes.Main.class), 
+            me.pacdev.zeta_hordes.ZetaHordes.getPlugin(me.pacdev.zeta_hordes.ZetaHordes.class), 
             id
         ));
     }
@@ -146,9 +138,10 @@ public class CustomZombieType {
         private final int minAmount;
         private final int maxAmount;
 
-        public ZombieDrop(Material material, double chance, String amount) {
-            this.material = material;
-            this.chance = chance;
+        public ZombieDrop(ConfigurationSection dropSection) {
+            this.material = Material.valueOf(dropSection.getString("item"));
+            this.chance = dropSection.getDouble("chance");
+            String amount = dropSection.getString("amount");
             String[] parts = amount.split("-");
             this.minAmount = Integer.parseInt(parts[0]);
             this.maxAmount = parts.length > 1 ? Integer.parseInt(parts[1]) : minAmount;

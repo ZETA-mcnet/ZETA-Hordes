@@ -1,10 +1,11 @@
 name: ZETA-Hordes
-main: me.pacdev.zeta_hordes.Main
-version: Z1.4.0
+main: me.pacdev.zeta_hordes.ZetaHordes
+version: Z1.4.1
 api-version: 1.21
+author: "Pacdev (Laut Khatulistiwa)"
+description: A zombie horde plugin for Minecraft servers
 commands:
   zetahordes:
-    description: Zeta Hordes command
+    description: Main command for ZETA-Hordes
     usage: /zetahordes
     permission: zeta.hordes
-author: "Pacdev (Laut Khatulistiwa)"

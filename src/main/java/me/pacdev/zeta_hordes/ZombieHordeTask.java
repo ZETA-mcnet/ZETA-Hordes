@@ -19,12 +19,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class ZombieHordeTask extends BukkitRunnable {
 
-    private final Main plugin; 
+    private final ZetaHordes plugin; 
     private final Set<String> worldWhitelist;
     private final Random random = new Random();
     private final CustomZombieManager zombieManager;
 
-    public ZombieHordeTask(Main plugin) { 
+    public ZombieHordeTask(ZetaHordes plugin) { 
         this.plugin = plugin;
         this.worldWhitelist = new HashSet<>(plugin.getConfig().getStringList("world-whitelist"));
         this.zombieManager = plugin.getZombieManager();
