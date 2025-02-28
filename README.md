@@ -2,7 +2,6 @@
 
 Transform your Minecraft server into a heart-pounding survival experience with ZETA-Hordes, an advanced zombie horde system that brings the thrill of survival horror to your world.
 
-[![Build Status](https://github.com/ZETA-mcnet/ZETA-Hordes/workflows/Build%20and%20Release/badge.svg)](https://github.com/ZETA-mcnet/ZETA-Hordes/actions)
 [![Latest Release](https://img.shields.io/github/v/release/ZETA-mcnet/ZETA-Hordes)](https://github.com/ZETA-mcnet/ZETA-Hordes/releases)
 [![Paper Compatible](https://img.shields.io/badge/Paper-1.21.4-brightgreen.svg)](https://papermc.io/)
 
